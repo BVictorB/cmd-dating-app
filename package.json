@@ -1,0 +1,22 @@
+{
+  "name": "project-tech",
+  "version": "1.0.0",
+  "description": "npm package for the tech-project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BVictorB/cmd-dating-app.git"
+  },
+  "author": "Victor Boucher",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BVictorB/cmd-dating-app/issues"
+  },
+  "homepage": "https://github.com/BVictorB/cmd-dating-app#readme",
+  "dependencies": {
+    "camelcase": "^6.0.0"
+  }
+}

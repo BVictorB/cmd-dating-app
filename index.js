@@ -1,14 +1,18 @@
 const camelCase = require('camelcase');
-const express = require('express');
-
 console.log(camelCase('this-is-camelcase'));
 
-app.use('/static', express.static('public'));
+const express = require('express');
+const app = express();
+const port = 1900;
 
-express()
-    .get('/', onhome)
-    .listen(1900);
+app.use('/static', express.static('static'));
 
-function onhome(req, res) {
+app.get('/', home);
+
+function home(req, res) {
     res.send('<h1>TEST!</h1>\n');
 }
+
+app.listen(port, function() {
+    console.log('Server running!');
+});

@@ -16,3 +16,11 @@ function home(req, res) {
 app.listen(port, function() {
     console.log('Server running!');
 });
+
+app.get('/file', function(req, res) {
+    res.sendfile('file/examplefile.txt');
+});
+
+app.get('/mp3', function(req, res) {
+    res.sendfile('file/examplemp3.mp3');
+});

@@ -1,0 +1,49 @@
+/* -------------------------------------------------------------------------- */
+/*                               Min Breakpoint                               */
+/* -------------------------------------------------------------------------- */
+@mixin breakpoint($min-width) {
+    $min-width: $min-width - 1px;
+    @media (min-width: $min-width) {
+        @content
+    }
+};
+
+/* -------------------------------------------------------------------------- */
+/*                               Max Breakpoint                               */
+/* -------------------------------------------------------------------------- */
+@mixin max-breakpoint($max-width) {
+    $max-width: $max-width - 1px;
+    @media (max-width: $max-width) {
+        @content
+    }
+};
+
+/* -------------------------------------------------------------------------- */
+/*                               Linear Gradient                              */
+/* -------------------------------------------------------------------------- */
+@mixin linear-gradient($direction, $color-stops...) {
+  background: nth(nth($color-stops, 1), 1);
+  background: -webkit-linear-gradient(legacy-direction($direction), $color-stops);
+  background: linear-gradient($direction, $color-stops);
+};
+
+/* -------------------------------------------------------------------------- */
+/*                                 Placeholder                                */
+/* -------------------------------------------------------------------------- */
+@mixin placeholder {
+    &::-webkit-input-placeholder {
+        @content;
+    }
+
+    &:-moz-placeholder {
+        @content;
+    }
+
+    &::-moz-placeholder {
+        @content;
+    }
+
+    &:-ms-input-placeholder {
+        @content;
+    }
+};

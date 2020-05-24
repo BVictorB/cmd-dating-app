@@ -500,62 +500,15 @@ body {
 /* -------------------------------------------------------------------------- */
 /*                                    Pages                                   */
 /* -------------------------------------------------------------------------- */
-* {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  font-family: 'Roboto', sans-serif; }
-
-body {
-  margin: 0; }
-
-.login-background {
+.p-login .login__background {
   position: fixed;
   top: 0;
   width: 100vw;
   height: 100vh;
   background-image: linear-gradient(to top, #b4814b, #aa423c); }
 
-h2 {
-  font-size: 40px;
-  color: #F25C54;
-  font-weight: 900;
-  margin: 0 0 20px 0; }
-
-h3 {
-  font-size: 15px;
-  margin-bottom: 5px;
-  color: #6D6875;
-  font-weight: 900; }
-
-h3 > span {
-  color: #F25C54; }
-
-input {
-  display: block;
-  width: 98%;
-  margin-bottom: 15px;
-  border: none;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  height: 40px;
-  padding: 0 5px; }
-
-input:focus {
-  border-bottom: 1px solid #F25C54;
-  outline: 0;
-  caret-color: #F25C54; }
-
-label {
-  padding-bottom: 5px;
-  display: inline-block;
-  color: #6D6875; }
-
-label > span {
-  color: #F25C54; }
-
-.login-card {
+.p-login .login__card {
   width: 400px;
-  /* height: 600px; */
   padding: 30px;
   border-radius: 10px;
   margin: 100px auto 0 auto;
@@ -565,8 +518,79 @@ label > span {
   transform: translateY(0vh);
   transition: transform .4s ease-in-out;
   background-color: white; }
+  .p-login .login__card--hide {
+    transform: translateY(-100vh); }
 
-button {
+.p-login .sign-up__card {
+  position: absolute;
+  top: 100px;
+  background-color: white;
+  left: calc(50% - 200px);
+  width: 400px;
+  -webkit-box-shadow: 6px 6px 18px 1px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 6px 6px 18px 1px rgba(0, 0, 0, 0.25);
+  box-shadow: 6px 6px 18px 1px rgba(0, 0, 0, 0.25);
+  padding: 30px;
+  border-radius: 10px;
+  transform: translateY(-100vh);
+  transition: transform .4s ease-in-out; }
+  .p-login .sign-up__card--show {
+    transform: translateY(0); }
+  .p-login .sign-up__card__close {
+    position: absolute;
+    right: 25px;
+    top: 15px;
+    font-size: 40px;
+    cursor: pointer;
+    color: #F25C54; }
+
+.p-login * {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif; }
+
+.p-login body {
+  margin: 0; }
+
+.p-login h2 {
+  font-size: 40px;
+  color: #F25C54;
+  font-weight: 900;
+  margin: 0 0 20px 0; }
+
+.p-login h3 {
+  font-size: 15px;
+  margin-bottom: 5px;
+  color: #6D6875;
+  font-weight: 900; }
+
+.p-login h3 > span {
+  color: #F25C54; }
+
+.p-login input {
+  display: block;
+  width: 98%;
+  margin-bottom: 15px;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  height: 40px;
+  padding: 0 5px; }
+
+.p-login input:focus {
+  border-bottom: 1px solid #F25C54;
+  outline: 0;
+  caret-color: #F25C54; }
+
+.p-login label {
+  padding-bottom: 5px;
+  display: inline-block;
+  color: #6D6875; }
+
+.p-login label > span {
+  color: #F25C54; }
+
+.p-login button {
   width: 100%;
   font-size: 16px;
   font-weight: 800;
@@ -585,14 +609,14 @@ button {
   box-shadow: 0 0 0 0px rgba(242, 92, 84, 0.4);
   transition: box-shadow .4s ease-in-out; }
 
-button:hover {
+.p-login button:hover {
   background-position: 100% 0;
   moz-transition: background-position .4s ease-in-out;
   -o-transition: background-position .4s ease-in-out;
   -webkit-transition: background-position .4s ease-in-out;
   transition: background-position .4s ease-in-out; }
 
-button:focus {
+.p-login button:focus {
   outline: 0;
   background-position: 100% 0;
   moz-transition: background-position .4s ease-in-out;
@@ -601,42 +625,23 @@ button:focus {
   transition: background-position .4s ease-in-out;
   box-shadow: 0 0 0 3px rgba(242, 92, 84, 0.4); }
 
-.sign-up-card {
-  position: absolute;
-  top: 100px;
-  background-color: white;
-  left: calc(50% - 200px);
-  width: 400px;
-  -webkit-box-shadow: 6px 6px 18px 1px rgba(0, 0, 0, 0.25);
-  -moz-box-shadow: 6px 6px 18px 1px rgba(0, 0, 0, 0.25);
-  box-shadow: 6px 6px 18px 1px rgba(0, 0, 0, 0.25);
-  padding: 30px;
-  border-radius: 10px;
-  transform: translateY(-100vh);
-  transition: transform .4s ease-in-out; }
-
-.sign-up-card--show {
-  transform: translateY(0); }
-
-.login-card--hide {
-  transform: translateY(-100vh); }
-
-.sign-up-card-close {
-  position: absolute;
-  right: 25px;
-  top: 15px;
-  font-size: 40px;
-  cursor: pointer;
-  color: #F25C54; }
-
-.no-error-message {
+.p-login .no-error-message {
   display: none; }
 
-.error-message {
+.p-login .error-message {
   display: block;
   color: #F25C54;
   font-size: 14px;
   margin-bottom: 15px; }
 
-.error {
+.p-login .error {
   border-bottom: 1px dashed #F25C54; }
+
+.p-login .no-error-message {
+  display: none; }
+
+.p-login .form-error-message {
+  display: block;
+  color: #F25C54;
+  font-size: 14px;
+  margin-bottom: 15px; }

@@ -1,45 +1,48 @@
-<div class="login-page">
-        <div class="login-background"></div>
-        <div class="login-card">
-            <h2>Log In</h2>
-            <form id="login_form" action="" method="POST">
-                <label for="login_email">E-mail adress</label>
-                <input class="no-error" type="text" name="login_email" id="login_email" placeholder="E-mail adress">
-                <span class="no-error-message"></span>
-                <label for="login_password">Password</label>
-                <input class="no-error" type="password" name="login_password" id="login_password" placeholder="Password">
-                <span class="no-error-message"></span>
-                <button form="login_form" type="submit" class="">
-                    Log In
-                </button>
-                <h3>Don't have an account yet? <span>Sign Up here:</span></h3>
-                <button type="button" class="sign-up-button">
-                    Sign Up
-                </button>
-            </form>
-        </div>
-        <div class="sign-up-card">
-            <h2>Sign Up</h2>
-            <span class="sign-up-card-close">x</span>
-            <form id="sign-up_form" action="" method="POST">
-                <label for="sign-up_user">Username <span>*</span></label>
-                <input class="no-error" type="text" name="sign-up_user" id="sign-up_user" placeholder="Username">
-                <span class="no-error-message"></span>
-                <label for="sign-up_email">E-mail adress <span>*</span></label>
-                <input class="no-error" type="text" name="sign-up_email" id="sign-up_email" placeholder="E-mail adress">
-                <span class="no-error-message"></span>
-                <label for="sign-up_password">Password <span>*</span></label>
-                <input class="no-error" type="password" name="sign-up_password" id="sign-up_password" placeholder="Password">
-                <span class="no-error-message"></span>
-                <label for="sign-up_password_repeat">Repeat password <span>*</span></label>
-                <input class="no-error" type="password" name="sign-up_password_repeat" id="sign-up_password_repeat" placeholder="Repeat password">
-                <span class="no-error-message"></span>
-                <button form="sign-up_form" type="submit" class="">
-                    Sign Up
-                </button>
-            </form>
-        </div>
-    
+<div class="p-login">
+    <div class="login__background"></div>
+    <div class="login__card">
+        <h2>Log In</h2>
+        <form id="login_form" action="" method="POST">
+            <label for="login_email">E-mail adress</label>
+            <input class="no-error" type="text" name="login_email" id="login_email" placeholder="E-mail adress">
+            <span class="no-error-message"></span>
+            <label for="login_password">Password</label>
+            <input class="no-error" type="password" name="login_password" id="login_password" placeholder="Password">
+            <span class="no-error-message"></span>
+            <button form="login_form" type="submit" class="">
+                Log In
+            </button>
+            <h3>Don't have an account yet? <span>Sign Up here:</span></h3>
+            <button type="button" class="sign-up-button">
+                Sign Up
+            </button>
+        </form>
+    </div>
+    <div class="sign-up__card">
+        <h2>Sign Up</h2>
+        <span class="sign-up__card__close">x</span>
+        <form id="sign-up_form" action="/signup" method="POST">
+            <span id="form-error-message" class="no-error-message">Please check if you have (correctly) filled in all fields.</span>
+            <label for="sign-up_user">Username <span>*</span></label>
+            <input class="no-error" type="text" name="sign-up_user" id="sign-up_user" placeholder="Username">
+            <span class="no-error-message"></span>
+            <label for="sign-up_email">E-mail adress <span>*</span></label>
+            <input class="no-error" type="text" name="sign-up_email" id="sign-up_email" placeholder="E-mail adress">
+            <span class="no-error-message"></span>
+            <label for="sign-up_password">Password <span>*</span></label>
+            <input class="no-error" type="password" name="sign-up_password" id="sign-up_password"
+                placeholder="Password">
+            <span class="no-error-message"></span>
+            <label for="sign-up_password_repeat">Repeat password <span>*</span></label>
+            <input class="no-error" type="password" name="sign-up_password_repeat" id="sign-up_password_repeat"
+                placeholder="Repeat password">
+            <span class="no-error-message"></span>
+            <button form="sign-up_form" type="submit" value="submit">
+                Sign Up
+            </button>
+        </form>
     </div>
 
-    <script src="script.js"></script>
+</div>
+
+<script src="script.js"></script>

@@ -1,14 +1,14 @@
 document.querySelector('.sign-up-button').addEventListener('click', function () {
-    document.querySelector('.sign-up-card').classList.add('sign-up-card--show');
-    document.querySelector('.login-card').classList.add('login-card--hide');
+    document.querySelector('.sign-up__card').classList.add('sign-up__card--show');
+    document.querySelector('.login__card').classList.add('login__card--hide');
 })
 
-document.querySelector('.sign-up-card-close').addEventListener('click', function () {
-    document.querySelector('.sign-up-card').classList.remove('sign-up-card--show');
-    document.querySelector('.login-card').classList.remove('login-card--hide');
+document.querySelector('.sign-up__card__close').addEventListener('click', function () {
+    document.querySelector('.sign-up__card').classList.remove('sign-up__card--show');
+    document.querySelector('.login__card').classList.remove('login__card--hide');
 })
 
-const loadValidateForm = document.querySelector('.login-page');
+const loadValidateForm = document.querySelector('.p-login');
 
 if (loadValidateForm) {
 
@@ -165,4 +165,27 @@ if (loadValidateForm) {
     inputs.forEach(function (input) {
         input.addEventListener('blur', validateForm);
     });
+
+    document.querySelector('#sign-up_form').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        var errors = false;
+
+        var submitInputs = document.querySelector('#sign-up_form');
+
+        submitInputs.querySelectorAll(':scope > input').forEach(function (input) {
+            validateForm(input);
+
+            if (input.classList.contains('no-error') || input.classList.contains('error') || parseInt(window.formTotal) === 0) {
+                errors = true;
+            }
+        });
+
+        if ( errors === true ) {
+            document.querySelector('#form-error-message').classList.replace('no-error-message', 'form-error-message');
+        } else {
+            document.querySelector('#form-error-message').classList.replace('form-error-message', 'no-error-message');
+            document.querySelector('#sign-up_form').submit();
+        }
+    })
 }

@@ -95,22 +95,23 @@
         border-bottom: 1px solid rgba(0, 0, 0, .2);
         height: 40px;
         padding: 0 5px;
-    }
 
-    input:focus {
-        border-bottom: 1px solid #F25C54;
-        outline: 0;
-        caret-color: #F25C54;
+        &:focus {
+            border-bottom: 1px solid #F25C54;
+            outline: 0;
+            caret-color: #F25C54;
+        }
     }
 
     label {
         padding-bottom: 5px;
         display: inline-block;
         color: #6D6875;
-    }
 
-    label>span {
-        color: #F25C54;
+        span {
+            color: #F25C54;
+
+        }
     }
 
     button {
@@ -131,24 +132,24 @@
         cursor: pointer;
         box-shadow: 0 0 0 0px rgba(242, 92, 84, .4);
         transition: box-shadow .4s ease-in-out;
-    }
 
-    button:hover {
-        background-position: 100% 0;
-        moz-transition: background-position .4s ease-in-out;
-        -o-transition: background-position .4s ease-in-out;
-        -webkit-transition: background-position .4s ease-in-out;
-        transition: background-position .4s ease-in-out;
-    }
+        &:hover {
+            background-position: 100% 0;
+            moz-transition: background-position .4s ease-in-out;
+            -o-transition: background-position .4s ease-in-out;
+            -webkit-transition: background-position .4s ease-in-out;
+            transition: background-position .4s ease-in-out;
+        }
 
-    button:focus {
-        outline: 0;
-        background-position: 100% 0;
-        moz-transition: background-position .4s ease-in-out;
-        -o-transition: background-position .4s ease-in-out;
-        -webkit-transition: background-position .4s ease-in-out;
-        transition: background-position .4s ease-in-out;
-        box-shadow: 0 0 0 3px rgba(242, 92, 84, .4);
+        &:focus {
+            outline: 0;
+            background-position: 100% 0;
+            moz-transition: background-position .4s ease-in-out;
+            -o-transition: background-position .4s ease-in-out;
+            -webkit-transition: background-position .4s ease-in-out;
+            transition: background-position .4s ease-in-out;
+            box-shadow: 0 0 0 3px rgba(242, 92, 84, .4);
+        }
     }
 
     .no-error-message {

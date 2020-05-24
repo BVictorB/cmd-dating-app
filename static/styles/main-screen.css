@@ -551,7 +551,8 @@ body {
   font-family: 'Roboto', sans-serif; }
 
 .p-login body {
-  margin: 0; }
+  margin: 0;
+  overflow: hidden; }
 
 .p-login h2 {
   font-size: 40px;
@@ -576,19 +577,17 @@ body {
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   height: 40px;
   padding: 0 5px; }
-
-.p-login input:focus {
-  border-bottom: 1px solid #F25C54;
-  outline: 0;
-  caret-color: #F25C54; }
+  .p-login input:focus {
+    border-bottom: 1px solid #F25C54;
+    outline: 0;
+    caret-color: #F25C54; }
 
 .p-login label {
   padding-bottom: 5px;
   display: inline-block;
   color: #6D6875; }
-
-.p-login label > span {
-  color: #F25C54; }
+  .p-login label span {
+    color: #F25C54; }
 
 .p-login button {
   width: 100%;
@@ -608,22 +607,20 @@ body {
   cursor: pointer;
   box-shadow: 0 0 0 0px rgba(242, 92, 84, 0.4);
   transition: box-shadow .4s ease-in-out; }
-
-.p-login button:hover {
-  background-position: 100% 0;
-  moz-transition: background-position .4s ease-in-out;
-  -o-transition: background-position .4s ease-in-out;
-  -webkit-transition: background-position .4s ease-in-out;
-  transition: background-position .4s ease-in-out; }
-
-.p-login button:focus {
-  outline: 0;
-  background-position: 100% 0;
-  moz-transition: background-position .4s ease-in-out;
-  -o-transition: background-position .4s ease-in-out;
-  -webkit-transition: background-position .4s ease-in-out;
-  transition: background-position .4s ease-in-out;
-  box-shadow: 0 0 0 3px rgba(242, 92, 84, 0.4); }
+  .p-login button:hover {
+    background-position: 100% 0;
+    moz-transition: background-position .4s ease-in-out;
+    -o-transition: background-position .4s ease-in-out;
+    -webkit-transition: background-position .4s ease-in-out;
+    transition: background-position .4s ease-in-out; }
+  .p-login button:focus {
+    outline: 0;
+    background-position: 100% 0;
+    moz-transition: background-position .4s ease-in-out;
+    -o-transition: background-position .4s ease-in-out;
+    -webkit-transition: background-position .4s ease-in-out;
+    transition: background-position .4s ease-in-out;
+    box-shadow: 0 0 0 3px rgba(242, 92, 84, 0.4); }
 
 .p-login .no-error-message {
   display: none; }

@@ -40,9 +40,16 @@
             border-radius: 10px;
             transform: translateY(-100vh);
             transition: transform .4s ease-in-out;
+            opacity: 0;
 
             &--show {
                 transform: translateY(0);
+                opacity: 1;
+            }
+
+            &--no-js {
+                transform: translateY(500px);
+                opacity: 1;
             }
 
             &__close {

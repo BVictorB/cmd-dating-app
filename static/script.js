@@ -1,16 +1,18 @@
-document.querySelector('.sign-up-button').addEventListener('click', function () {
-    document.querySelector('.sign-up__card').classList.add('sign-up__card--show');
-    document.querySelector('.login__card').classList.add('login__card--hide');
-})
-
-document.querySelector('.sign-up__card__close').addEventListener('click', function () {
-    document.querySelector('.sign-up__card').classList.remove('sign-up__card--show');
-    document.querySelector('.login__card').classList.remove('login__card--hide');
-})
-
 const loadValidateForm = document.querySelector('.p-login');
 
 if (loadValidateForm) {
+
+    document.querySelector('.sign-up__card').classList.remove('sign-up__card--no-js');
+
+    document.querySelector('.sign-up-button').addEventListener('click', function () {
+        document.querySelector('.sign-up__card').classList.add('sign-up__card--show');
+        document.querySelector('.login__card').classList.add('login__card--hide');
+    });
+    
+    document.querySelector('.sign-up__card__close').addEventListener('click', function () {
+        document.querySelector('.sign-up__card').classList.remove('sign-up__card--show');
+        document.querySelector('.login__card').classList.remove('login__card--hide');
+    });    
 
     const validateForm = function (e) {
         if (e.target) {
@@ -28,7 +30,7 @@ if (loadValidateForm) {
         var signupPassword = document.querySelector('#sign-up_password');
         var signupPasswordRepeat = document.querySelector('#sign-up_password_repeat');
 
-        var emailValidator = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        var emailValidator = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         var userValidator = /^[a-zA-Z0-9_.-]*$/;
 
         if (target.id == 'login_email') {
@@ -158,7 +160,7 @@ if (loadValidateForm) {
         }
 
 
-    }
+    };
 
     var inputs = document.querySelectorAll('input[type="text"], input[type="email"], input[type="password"]');
 
@@ -187,5 +189,5 @@ if (loadValidateForm) {
             document.querySelector('#form-error-message').classList.replace('form-error-message', 'no-error-message');
             document.querySelector('#sign-up_form').submit();
         }
-    })
+    });
 }

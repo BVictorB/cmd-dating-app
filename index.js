@@ -4,6 +4,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const hbs = require('express-handlebars');
+// const fs = require('fs');
 
 const app = express();
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -28,4 +29,4 @@ app.get('/', (req, res) => {
 
 app.post('/signup', urlencodedParser, function (req, res) {
 	res.render('partials/login/signup-completed', {data: req.body});
-})
+});

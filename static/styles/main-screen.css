@@ -533,9 +533,14 @@ body {
   padding: 30px;
   border-radius: 10px;
   transform: translateY(-100vh);
-  transition: transform .4s ease-in-out; }
+  transition: transform .4s ease-in-out;
+  opacity: 0; }
   .p-login .sign-up__card--show {
-    transform: translateY(0); }
+    transform: translateY(0);
+    opacity: 1; }
+  .p-login .sign-up__card--no-js {
+    transform: translateY(500px);
+    opacity: 1; }
   .p-login .sign-up__card__close {
     position: absolute;
     right: 25px;

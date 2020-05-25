@@ -40,7 +40,7 @@
             border-radius: 10px;
             transform: translateY(-100vh);
             transition: transform .4s ease-in-out;
-            opacity: 0;
+            margin-bottom: 100px;
 
             &--show {
                 transform: translateY(0);
@@ -50,6 +50,10 @@
             &--no-js {
                 transform: translateY(500px);
                 opacity: 1;
+            }
+
+            &--has-js {
+                opacity: 0;
             }
 
             &__close {

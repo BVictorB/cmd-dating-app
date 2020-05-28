@@ -35,7 +35,7 @@ app.get('/', (req, res) => {
 // 	res.redirect('/');
 // });
 
-app.get('/mongo', (req, res) => {
+app.get('/users', (req, res) => {
 	MongoClient.connect(url, (err, client) => {
 		const db = client.db('datingsite');
 
@@ -81,6 +81,10 @@ app.post('/signup', urlencodedParser, (req, res) => {
 				}
 				if (user) {
 					console.log('Username is taken');
+					console.log(req.body);
+					res.render('partials/login/login', {
+						data: req.body
+					});
 				} else {
 					const user = {
 						username: req.body.signupUser,
@@ -88,7 +92,7 @@ app.post('/signup', urlencodedParser, (req, res) => {
 						password: req.body.signupPassword
 					};
 
-					users.insert([user], (err, result) => {
+					users.insert([user], (err) => {
 						if (err) {
 							console.log('MongoDB Error:' + err);
 						} else {

@@ -551,6 +551,9 @@ body {
     cursor: pointer;
     color: #F25C54; }
 
+.p-login .sign-up--failed {
+  display: none; }
+
 .p-login * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -649,3 +652,5 @@ body {
   color: #F25C54;
   font-size: 14px;
   margin-bottom: 15px; }
+  .p-login .form-error-message span {
+    text-decoration: underline; }

@@ -1,5 +1,10 @@
-<ul>
-		{{#each userlist}}
-		<li>{{username}} ({{email}})</li>
-		{{/each}}
-</ul>
+{{!-- This is just an example for how to use the database information for now... --}}
+<div class="p-login">
+    <div class="login__background"></div>
+	{{#each userlist}}
+    <div class="login__card">
+        <h2>{{username}}</h2>
+        <h3>{{email}}</h3>
+    </div>
+	{{/each}}
+</div>

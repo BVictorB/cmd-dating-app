@@ -4,23 +4,35 @@ if (loadValidateForm) {
 
     const signupCard = document.querySelector('.sign-up__card');
     const loginCard = document.querySelector('.login__card');
+    const failedMessage = document.querySelector('.sign-up--failed');
 
     signupCard.classList.replace('sign-up__card--no-js', 'sign-up__card--has-js');
 
-    document.querySelector('.sign-up-button').addEventListener('click', function () {
+    if (document.querySelector('.takenUsername').innerHTML) {
+        signupCard.classList.add('sign-up__card--show');
+        loginCard.classList.add('login__card--hide');
+        failedMessage.classList.add('form-error-message');
+        if (signupCard.classList.contains('sign-up__card--has-js')) {
+            signupCard.classList.remove('sign-up__card--has-js');
+        }
+    } else {
+        failedMessage.classList.remove('form-error-message');
+    }
+
+    document.querySelector('.sign-up-button').addEventListener('click', () => {
         signupCard.classList.add('sign-up__card--show');
         loginCard.classList.add('login__card--hide');
         if (signupCard.classList.contains('sign-up__card--has-js')) {
             signupCard.classList.remove('sign-up__card--has-js');
         }
     });
-    
-    document.querySelector('.sign-up__card__close').addEventListener('click', function () {
+
+    document.querySelector('.sign-up__card__close').addEventListener('click', () => {
         signupCard.classList.remove('sign-up__card--show');
         loginCard.classList.remove('login__card--hide');
-    });    
+    });
 
-    const validateForm = function (e) {
+    const validateForm = (e) => {
         if (e.target) {
             var target = e.target;
         } else {
@@ -171,18 +183,18 @@ if (loadValidateForm) {
 
     var inputs = document.querySelectorAll('input[type="text"], input[type="email"], input[type="password"]');
 
-    inputs.forEach(function (input) {
+    inputs.forEach((input) => {
         input.addEventListener('blur', validateForm);
     });
 
-    document.querySelector('#sign-up_form').addEventListener('submit', function (event) {
+    document.querySelector('#sign-up_form').addEventListener('submit', (event) => {
         event.preventDefault();
 
         var errors = false;
 
         var submitInputs = document.querySelector('#sign-up_form');
 
-        submitInputs.querySelectorAll(':scope > input').forEach(function (input) {
+        submitInputs.querySelectorAll(':scope > input').forEach((input) => {
             validateForm(input);
 
             if (input.classList.contains('no-error') || input.classList.contains('error') || parseInt(window.formTotal) === 0) {
@@ -190,7 +202,7 @@ if (loadValidateForm) {
             }
         });
 
-        if ( errors === true ) {
+        if (errors === true) {
             document.querySelector('#form-error-message').classList.replace('no-error-message', 'form-error-message');
         } else {
             document.querySelector('#form-error-message').classList.replace('form-error-message', 'no-error-message');

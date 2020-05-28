@@ -2,22 +2,22 @@ const loadValidateForm = document.querySelector('.p-login');
 
 if (loadValidateForm) {
 
-    document.querySelector('.sign-up__card').classList.replace('sign-up__card--no-js', 'sign-up__card--has-js');
+    const signupCard = document.querySelector('.sign-up__card');
+    const loginCard = document.querySelector('.login__card');
+
+    signupCard.classList.replace('sign-up__card--no-js', 'sign-up__card--has-js');
 
     document.querySelector('.sign-up-button').addEventListener('click', function () {
-        document.querySelector('.sign-up__card').classList.add('sign-up__card--show');
-        document.querySelector('.login__card').classList.add('login__card--hide');
-        if (document.querySelector('.sign-up__card').classList.contains('sign-up__card--has-js')) {
-            document.querySelector('.sign-up__card').classList.remove('sign-up__card--has-js');
+        signupCard.classList.add('sign-up__card--show');
+        loginCard.classList.add('login__card--hide');
+        if (signupCard.classList.contains('sign-up__card--has-js')) {
+            signupCard.classList.remove('sign-up__card--has-js');
         }
     });
     
     document.querySelector('.sign-up__card__close').addEventListener('click', function () {
-        document.querySelector('.sign-up__card').classList.remove('sign-up__card--show');
-        document.querySelector('.login__card').classList.remove('login__card--hide');
-        if (document.querySelector('.sign-up__card').classList.contains('sign-up__card--has-js')) {
-            document.querySelector('.sign-up__card').classList.remove('sign-up__card--has-js');
-        }
+        signupCard.classList.remove('sign-up__card--show');
+        loginCard.classList.remove('login__card--hide');
     });    
 
     const validateForm = function (e) {

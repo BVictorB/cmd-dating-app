@@ -24,22 +24,23 @@ if (loadValidateForm) {
         if (e.target) {
             var target = e.target;
         } else {
+            // eslint-disable-next-line no-redeclare
             var target = e;
         }
 
 
-        var loginEmail = document.querySelector('#login_email');
-        var loginPassword = document.querySelector('#login_password');
+        var loginEmail = document.querySelector('#loginEmail');
+        var loginPassword = document.querySelector('#loginPassword');
 
-        var signupUser = document.querySelector('#sign-up_user');
-        var signupEmail = document.querySelector('#sign-up_email');
-        var signupPassword = document.querySelector('#sign-up_password');
-        var signupPasswordRepeat = document.querySelector('#sign-up_password_repeat');
+        var signupUser = document.querySelector('#signupUser');
+        var signupEmail = document.querySelector('#signupEmail');
+        var signupPassword = document.querySelector('#signupPassword');
+        var signupPasswordRepeat = document.querySelector('#signupPasswordRepeat');
 
         var emailValidator = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         var userValidator = /^[a-zA-Z0-9_.-]*$/;
 
-        if (target.id == 'login_email') {
+        if (target.id == 'loginEmail') {
             if (loginEmail.value.length == 0) {
                 if (!loginEmail.classList.contains('error')) {
                     loginEmail.classList.add('error');
@@ -63,7 +64,7 @@ if (loadValidateForm) {
             }
         }
 
-        if (target.id == 'login_password') {
+        if (target.id == 'loginPassword') {
             if (loginPassword.value.length == 0) {
                 if (!loginPassword.classList.contains('error')) {
                     loginPassword.classList.add('error');
@@ -78,7 +79,7 @@ if (loadValidateForm) {
             }
         }
 
-        if (target.id == 'sign-up_user') {
+        if (target.id == 'signupUser') {
             if (signupUser.value.length == 0) {
                 if (!signupUser.classList.contains('error')) {
                     signupUser.classList.add('error');
@@ -102,7 +103,7 @@ if (loadValidateForm) {
             }
         }
 
-        if (target.id == 'sign-up_email') {
+        if (target.id == 'signupEmail') {
             if (signupEmail.value.length == 0) {
                 if (!signupEmail.classList.contains('error')) {
                     signupEmail.classList.add('error');
@@ -126,7 +127,7 @@ if (loadValidateForm) {
             }
         }
 
-        if (target.id == 'sign-up_password') {
+        if (target.id == 'signupPassword') {
             if (signupPassword.value.length == 0) {
                 if (!signupPassword.classList.contains('error')) {
                     signupPassword.classList.add('error');
@@ -141,7 +142,7 @@ if (loadValidateForm) {
             }
         }
 
-        if (target.id == 'sign-up_password_repeat') {
+        if (target.id == 'signupPasswordRepeat') {
             if (signupPasswordRepeat.value.length == 0) {
                 if (!signupPasswordRepeat.classList.contains('error')) {
                     signupPasswordRepeat.classList.add('error');

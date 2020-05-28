@@ -4,21 +4,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const hbs = require('express-handlebars');
-const mongoose = require('mongoose');
-// const fs = require('fs');
-
-const uri = 'mongodb+srv://bvictorb:victor5@cluster0-wtktd.azure.mongodb.net/test?retryWrites=true&w=majority';
-
-mongoose.connect(uri, {
-	useNewUrlParser: true,
-	useUnifiedTopology: true
-  })
-  .then(() => {
-	console.log('MongoDB Connected!');
-  })
-  .catch(err => console.log(err));
-
-//Going to switch this all up and replace it with the mongodb package setup to simplify my project for now.
+const MongoClient = require('mongodb').MongoClient;
+require('dotenv').config();
 
 const app = express();
 const urlencodedParser = bodyParser.urlencoded({
@@ -26,6 +13,8 @@ const urlencodedParser = bodyParser.urlencoded({
 });
 
 const port = 1900;
+// eslint-disable-next-line no-undef
+const url = process.env.MONGO_URL;
 
 app
 	.set('view engine', 'hbs')
@@ -39,15 +28,81 @@ app
 	});
 
 app.get('/', (req, res) => {
-	res.render('partials/login/login.hbs');
+	res.render('partials/login/login');
 });
 
-app.get('*', (req, res) => {
-	res.redirect('/');
+// app.get('*', (req, res) => {
+// 	res.redirect('/');
+// });
+
+app.get('/mongo', (req, res) => {
+	MongoClient.connect(url, (err, client) => {
+		const db = client.db('datingsite');
+
+		if (err) {
+			console.log('MongoDB Error:' + err);
+		} else {
+			console.log('MongoDB Connected!');
+
+			const users = db.collection('users');
+
+			users.find({}).toArray((err, result) => {
+				if (err) {
+					res.send(err);
+				} else if (result.length) {
+					res.render('partials/users/userlist', {
+						'userlist': result
+					});
+				} else {
+					res.send('No data found');
+				}
+			});
+			client.close();
+		}
+	});
 });
 
 app.post('/signup', urlencodedParser, (req, res) => {
-	res.render('partials/login/signup-completed', {
-		data: req.body
+	MongoClient.connect(url, (err, client) => {
+		const db = client.db('datingsite');
+
+		if (err) {
+			console.log('MongoDB Error:' + err);
+		} else {
+			console.log('MongoDB Connnected!');
+
+			const users = db.collection('users');
+
+			users.findOne({
+				username: req.body.signupUser
+			}, (err, user) => {
+				if (err) {
+					console.log('MongoDB Error:' + err);
+				}
+				if (user) {
+					console.log('Username is taken');
+				} else {
+					const user = {
+						username: req.body.signupUser,
+						email: req.body.signupEmail,
+						password: req.body.signupPassword
+					};
+
+					users.insert([user], (err, result) => {
+						if (err) {
+							console.log('MongoDB Error:' + err);
+						} else {
+							console.log('User Registered!');
+
+							res.render('partials/login/signup-completed', {
+								data: req.body
+							});
+						}
+						client.close();
+					});
+				}
+			});
+		}
 	});
+
 });

@@ -1,0 +1,42 @@
+.p-profile {
+
+    textarea {
+        width: 98%;
+    }
+
+    input, textarea {
+        display: none;
+    }
+
+    h3 {
+        display: block;
+    }
+
+    .profile {
+        &__edit {
+            input, textarea {
+                display: block;
+            }
+
+            h3 {
+                display: none;
+            }
+        }
+
+        &__button {
+            display: block;
+
+            &--hide {
+                display: none;
+            }
+        }
+
+        &__save {
+            display: none;
+
+            &--show {
+                display: block;
+            }
+        }
+    }
+}

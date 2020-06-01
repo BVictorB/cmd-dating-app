@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* global require */
 // The line above is to get rid of an error that ESLint gives when using require.
 
@@ -15,17 +16,17 @@ const urlencodedParser = bodyParser.urlencoded({
 });
 
 const port = 1900;
-// eslint-disable-next-line no-undef
-const url = process.env.MONGO_URL;
+const url = process.env.DB_URL;
+const dbname = process.env.DB_NAME;
+const sessionSecret = process.env.SESSION_SECRET;
 const sessionID = 'sessionID';
-const sessionSecret = '4T-8*9gMbvMUXpbYdofXkGf3';
 const store = new MongoDBStore({
 	uri: url,
 	collection: 'sessions'
 });
 
-store.on('error', (error) => {
-	console.log('Session MongoDB error:' + error);
+store.on('error', (err) => {
+	console.log('Session MongoDB error:' + err);
 });
 
 app
@@ -68,34 +69,105 @@ const userRedirectProfile = (req, res, next) => {
 };
 
 app.get('/', (req, res) => {
-	const { sessionID } = req.session;
-
-	if (!sessionID) {
+	if (!req.session.sessionID) {
 		res.redirect('/login');
-		console.log(sessionID);
 	} else {
 		res.redirect('/profile');
-		console.log(sessionID);
 	}
-
-	// res.render('partials/home/home');
 });
 
 app.get('/login', userRedirectProfile, (req, res) => {
-	res.render('partials/login/login');
+	res.render('partials/login/login', {
+		title: 'Login page'
+	});
 });
 
-app.get('/profile', userRedirectLogin, (req, res) => {
-	// res.render('partials/profile/profile');
+app.post('/login', urlencodedParser, (req, res) => {
+	if (req.body.loginEmail && req.body.loginPassword) {
+		MongoClient.connect(url, (err, client) => {
+			const db = client.db(dbname);
 
+			if (err) {
+				console.log('MongoDB Error:' + err);
+			} else {
+				const users = db.collection('users');
+
+				users.findOne({
+					email: req.body.loginEmail.toLowerCase()
+				}, (err, user) => {
+					if (err) {
+						console.log('MongoDB Error:' + err);
+					}
+					if (user && user.password === req.body.loginPassword) {
+						req.session.sessionID = user._id;
+						res.redirect('/profile');
+					} else {
+						res.render('partials/login/login', {
+							data: req.body
+						});
+					}
+				});
+			}
+		});
+	} else {
+		res.render('partials/login/login', {
+			data: req.body
+		});
+	}
+});
+
+app.post('/signup', urlencodedParser, (req, res) => {
 	MongoClient.connect(url, (err, client) => {
-		const db = client.db('datingsite');
+		const db = client.db(dbname);
 
 		if (err) {
 			console.log('MongoDB Error:' + err);
 		} else {
-			console.log('MongoDB Connnected!');
+			const users = db.collection('users');
 
+			users.findOne({
+				username: req.body.signupUser
+			}, (err, user) => {
+				if (err) {
+					console.log('MongoDB Error:' + err);
+				}
+				if (user) {
+					res.render('partials/login/login', {
+						data: req.body
+					});
+				} else {
+					const user = {
+						username: req.body.signupUser,
+						email: req.body.signupEmail.toLowerCase(),
+						password: req.body.signupPassword,
+						description: '',
+						age: '',
+						location: ''
+					};
+
+					users.insert([user], (err) => {
+						if (err) {
+							console.log('MongoDB Error:' + err);
+						} else {
+							res.render('partials/login/signup-completed', {
+								data: req.body
+							});
+						}
+						client.close();
+					});
+				}
+			});
+		}
+	});
+});
+
+app.get('/profile', userRedirectLogin, (req, res) => {
+	MongoClient.connect(url, (err, client) => {
+		const db = client.db(dbname);
+
+		if (err) {
+			console.log('MongoDB Error:' + err);
+		} else {
 			const users = db.collection('users');
 
 			users.findOne({
@@ -105,23 +177,125 @@ app.get('/profile', userRedirectLogin, (req, res) => {
 					console.log('MongoDB Error:' + err);
 				}
 				if (user) {
-					console.log('id found');
-					console.log(user.username);
-
 					res.render('partials/profile/profile', {
-						'userInfo': user
+						'userInfo': user,
+						title: 'Profile page'
 					});
 				} else {
-					console.log('could not find id');
+					console.log('Error: client ID could not been found!');
 				}
 			});
 		}
 	});
+});
 
+app.post('/profile', urlencodedParser, (req, res) => {
+	MongoClient.connect(url, (err, client) => {
+		const db = client.db(dbname);
+
+		if (err) {
+			console.log('MongoDB Error:' + err);
+		}
+
+		const users = db.collection('users');
+
+		users.findOne({
+			_id: req.session.sessionID
+		}, (err, user) => {
+			if (err) {
+				console.log('MongoDB Error:' + err);
+			}
+			if (req.body.editUser != user.username) {
+				users.findOne({
+					username: req.body.editUser
+				}, (err, username) => {
+					if (err) {
+						console.log('MongoDB Error:' + err);
+					}
+					if (username) {
+						console.log('name taken');
+						res.render('partials/profile/profile', {
+							'userInfo': user,
+							data: req.body
+						});
+					} else {
+						users.updateMany({
+							_id: req.session.sessionID
+						}, {
+							$set: {
+								'username': req.body.editUser,
+								'age': req.body.editAge,
+								'location': req.body.editLocation,
+								'description': req.body.editDescription
+							}
+						});
+						res.redirect('/profile');
+					}
+				});
+			} else {
+				users.updateMany({
+					_id: req.session.sessionID
+				}, {
+					$set: {
+						'age': req.body.editAge,
+						'location': req.body.editLocation,
+						'description': req.body.editDescription
+					}
+				});
+				res.redirect('/profile');
+			}
+		});
+	});
+});
+
+app.get('/remove', urlencodedParser, (req, res) => {
+	res.render('partials/remove/remove');
+});
+
+app.post('/remove', urlencodedParser, (req, res) => {
+	MongoClient.connect(url, (err, client) => {
+		const db = client.db(dbname);
+
+		if (err) {
+			console.log('MongoDB Error:' + err);
+		} else {
+			const users = db.collection('users');
+
+			users.findOne({
+				_id: req.session.sessionID
+			}, (err, user) => {
+				if (err) {
+					console.log('MongoDB Error:' + err);
+				}
+				if (user) {
+					if (req.body.removePassword === user.password) {
+						users.deleteOne({
+							'_id': req.session.sessionID
+						});
+						req.session.destroy((err) => {
+							if (err) {
+								console.log('Error deleting user:' + err);
+							}
+	
+							res.clearCookie(sessionID);
+							res.redirect('/login');
+						});
+					} else {
+						console.log('password incorrect');
+						res.render('partials/remove/remove', {
+							data: 'The entered password is incorrect.'
+						});
+					}
+					
+				} else {
+					res.redirect('/');
+				}
+			});
+		}
+	});
 });
 
 app.post('/logout', userRedirectLogin, (req, res) => {
-	console.log('User has logged out');
 	req.session.destroy((err) => {
 		if (err) {
 			res.redirect('/profile');
@@ -132,52 +306,19 @@ app.post('/logout', userRedirectLogin, (req, res) => {
 	});
 });
 
+//The code below this line will not be used in the final product
+
 // app.get('*', (req, res) => {
 // 	res.redirect('/');
 // });
 
-app.post('/login', urlencodedParser, (req, res) => {
-	if (req.body.loginEmail && req.body.loginPassword) {
-		MongoClient.connect(url, (err, client) => {
-			const db = client.db('datingsite');
-	
-			if (err) {
-				console.log('MongoDB Error:' + err);
-			} else {
-				console.log('MongoDB Connnected!');
-	
-				const users = db.collection('users');
-	
-				users.findOne({
-					email: req.body.loginEmail
-				}, (err, user) => {
-					if (err) {
-						console.log('MongoDB Error:' + err);
-					}
-					if (user && user.password === req.body.loginPassword) {
-						console.log('email and password correct');
-						req.session.sessionID = user._id;
-						res.redirect('/profile');
-					} else {
-						console.log('email and/or password incorrect');
-					}
-				});
-			}
-		});
-	} else {
-		console.log('Please fill in your email and password');
-	}
-});
-
 app.get('/users', (req, res) => {
 	MongoClient.connect(url, (err, client) => {
-		const db = client.db('datingsite');
+		const db = client.db(dbname);
 
 		if (err) {
 			console.log('MongoDB Error:' + err);
 		} else {
-			console.log('MongoDB Connected!');
-
 			const users = db.collection('users');
 
 			users.find({}).toArray((err, result) => {
@@ -196,52 +337,4 @@ app.get('/users', (req, res) => {
 	});
 
 	console.log(req.session);
-});
-
-app.post('/signup', urlencodedParser, (req, res) => {
-	MongoClient.connect(url, (err, client) => {
-		const db = client.db('datingsite');
-
-		if (err) {
-			console.log('MongoDB Error:' + err);
-		} else {
-			console.log('MongoDB Connnected!');
-
-			const users = db.collection('users');
-
-			users.findOne({
-				username: req.body.signupUser
-			}, (err, user) => {
-				if (err) {
-					console.log('MongoDB Error:' + err);
-				}
-				if (user) {
-					console.log('Username is taken');
-					console.log(req.body);
-					res.render('partials/login/login', {
-						data: req.body
-					});
-				} else {
-					const user = {
-						username: req.body.signupUser,
-						email: req.body.signupEmail,
-						password: req.body.signupPassword
-					};
-
-					users.insert([user], (err) => {
-						if (err) {
-							console.log('MongoDB Error:' + err);
-						} else {
-							console.log('User Registered!');
-
-							res.render('partials/login/signup-completed', {
-								data: req.body
-							});
-						}
-						client.close();
-					});
-				}
-			});
-		}
-	});
 });

@@ -521,6 +521,12 @@ body {
   .p-login .login__card--hide {
     transform: translateY(-100vh); }
 
+.p-login .login--failed {
+  display: none; }
+
+.p-login .loginFailed {
+  display: none; }
+
 .p-login .sign-up__card {
   position: absolute;
   top: 100px;
@@ -654,3 +660,28 @@ body {
   margin-bottom: 15px; }
   .p-login .form-error-message span {
     text-decoration: underline; }
+
+.p-profile textarea {
+  width: 98%; }
+
+.p-profile input, .p-profile textarea {
+  display: none; }
+
+.p-profile h3 {
+  display: block; }
+
+.p-profile .profile__edit input, .p-profile .profile__edit textarea {
+  display: block; }
+
+.p-profile .profile__edit h3 {
+  display: none; }
+
+.p-profile .profile__button {
+  display: block; }
+  .p-profile .profile__button--hide {
+    display: none; }
+
+.p-profile .profile__save {
+  display: none; }
+  .p-profile .profile__save--show {
+    display: block; }

@@ -2,9 +2,12 @@
     <div class="login__background"></div>
     <div class="login__card">
         <h2>Log In</h2>
+        <span class="loginFailed">{{ data.loginEmail }}</span>
         <form id="login_form" action="/login" method="POST">
+            <span class="login--failed">Your e-mail adress or password is incorrect.</span>
+            <span id="login-error-message" class="no-error-message">Please check if you have (correctly) filled in all fields.</span>
             <label for="loginEmail">E-mail adress</label>
-            <input class="no-error" type="text" name="loginEmail" id="loginEmail" placeholder="E-mail adress">
+            <input class="no-error" type="text" name="loginEmail" id="loginEmail" placeholder="E-mail adress" value="{{ data.loginEmail }}">
             <span class="no-error-message"></span>
             <label for="loginPassword">Password</label>
             <input class="no-error" type="password" name="loginPassword" id="loginPassword" placeholder="Password">
@@ -20,9 +23,9 @@
     </div>
     <div class="sign-up__card sign-up__card--no-js">
         <h2>Sign Up</h2>
-        <h4 class="sign-up--failed">The username <span class="takenUsername">{{ data.signupUser }}</span> is already taken, please choose a different one.</h4>
         <span class="sign-up__card__close">x</span>
         <form id="sign-up_form" action="/signup" method="POST">
+            <span class="sign-up--failed">The username <span class="takenUsername">{{ data.signupUser }}</span> is already taken, please choose a different one.</span>
             <span id="form-error-message" class="no-error-message">Please check if you have (correctly) filled in all fields.</span>
             <label for="signupUser">Username <span>*</span></label>
             <input class="no-error" type="text" name="signupUser" id="signupUser" placeholder="Username">
@@ -46,4 +49,4 @@
 
 </div>
 
-<script src="script.js"></script>
+<script src="loginsignupValidate.js"></script>

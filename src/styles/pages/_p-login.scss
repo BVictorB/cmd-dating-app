@@ -24,6 +24,15 @@
                 transform: translateY(-100vh);
             }
         }
+
+        &--failed {
+            display: none;
+        }
+
+    }
+
+    .loginFailed {
+        display: none;
     }
 
     .sign-up {

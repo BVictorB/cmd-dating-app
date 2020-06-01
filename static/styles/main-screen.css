@@ -518,8 +518,11 @@ body {
   transform: translateY(0vh);
   transition: transform .4s ease-in-out;
   background-color: white; }
+  @media (max-width: 420px) {
+    .p-login .login__card {
+      width: 300px; } }
   .p-login .login__card--hide {
-    transform: translateY(-100vh); }
+    transform: translateY(-150vh); }
 
 .p-login .login--failed {
   display: none; }
@@ -538,9 +541,13 @@ body {
   box-shadow: 6px 6px 18px 1px rgba(0, 0, 0, 0.25);
   padding: 30px;
   border-radius: 10px;
-  transform: translateY(-100vh);
+  transform: translateY(-150vh);
   transition: transform .4s ease-in-out;
   margin-bottom: 100px; }
+  @media (max-width: 420px) {
+    .p-login .sign-up__card {
+      width: 300px;
+      left: calc(50% - 150px); } }
   .p-login .sign-up__card--show {
     transform: translateY(0);
     opacity: 1; }
@@ -668,7 +675,8 @@ body {
   display: none; }
 
 .p-profile p {
-  display: block; }
+  display: block;
+  margin-top: 10px; }
 
 .p-profile label {
   border-bottom: 1px solid #F25C54; }

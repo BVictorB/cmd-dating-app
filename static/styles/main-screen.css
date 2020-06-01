@@ -667,13 +667,16 @@ body {
 .p-profile input, .p-profile textarea {
   display: none; }
 
-.p-profile h3 {
+.p-profile p {
   display: block; }
+
+.p-profile label {
+  border-bottom: 1px solid #F25C54; }
 
 .p-profile .profile__edit input, .p-profile .profile__edit textarea {
   display: block; }
 
-.p-profile .profile__edit h3 {
+.p-profile .profile__edit p {
   display: none; }
 
 .p-profile .profile__button {

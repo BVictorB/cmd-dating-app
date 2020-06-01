@@ -24,6 +24,8 @@ const store = new MongoDBStore({
 	uri: url,
 	collection: 'sessions'
 });
+let db = null;
+let users = null;
 
 store.on('error', (err) => {
 	console.log('Session MongoDB error:' + err);
@@ -51,6 +53,15 @@ app.use(session({
 		secure: false
 	}
 }));
+
+MongoClient.connect(url, (err, client) => {
+	if (err) {
+		console.log('MongoDB Error:' + err);
+	} else {
+		db = client.db(dbname);
+		users = db.collection('users');
+	}
+});
 
 const userRedirectLogin = (req, res, next) => {
 	if (!req.session.sessionID) {
@@ -84,28 +95,18 @@ app.get('/login', userRedirectProfile, (req, res) => {
 
 app.post('/login', urlencodedParser, (req, res) => {
 	if (req.body.loginEmail && req.body.loginPassword) {
-		MongoClient.connect(url, (err, client) => {
-			const db = client.db(dbname);
-
+		users.findOne({
+			email: req.body.loginEmail.toLowerCase()
+		}, (err, user) => {
 			if (err) {
 				console.log('MongoDB Error:' + err);
+			}
+			if (user && user.password === req.body.loginPassword) {
+				req.session.sessionID = user._id;
+				res.redirect('/profile');
 			} else {
-				const users = db.collection('users');
-
-				users.findOne({
-					email: req.body.loginEmail.toLowerCase()
-				}, (err, user) => {
-					if (err) {
-						console.log('MongoDB Error:' + err);
-					}
-					if (user && user.password === req.body.loginPassword) {
-						req.session.sessionID = user._id;
-						res.redirect('/profile');
-					} else {
-						res.render('partials/login/login', {
-							data: req.body
-						});
-					}
+				res.render('partials/login/login', {
+					data: req.body
 				});
 			}
 		});
@@ -117,43 +118,32 @@ app.post('/login', urlencodedParser, (req, res) => {
 });
 
 app.post('/signup', urlencodedParser, (req, res) => {
-	MongoClient.connect(url, (err, client) => {
-		const db = client.db(dbname);
-
+	users.findOne({
+		username: req.body.signupUser
+	}, (err, user) => {
 		if (err) {
 			console.log('MongoDB Error:' + err);
+		}
+		if (user) {
+			res.render('partials/login/login', {
+				data: req.body
+			});
 		} else {
-			const users = db.collection('users');
+			const user = {
+				username: req.body.signupUser,
+				email: req.body.signupEmail.toLowerCase(),
+				password: req.body.signupPassword,
+				description: '',
+				age: '',
+				location: ''
+			};
 
-			users.findOne({
-				username: req.body.signupUser
-			}, (err, user) => {
+			users.insert([user], (err) => {
 				if (err) {
 					console.log('MongoDB Error:' + err);
-				}
-				if (user) {
-					res.render('partials/login/login', {
-						data: req.body
-					});
 				} else {
-					const user = {
-						username: req.body.signupUser,
-						email: req.body.signupEmail.toLowerCase(),
-						password: req.body.signupPassword,
-						description: '',
-						age: '',
-						location: ''
-					};
-
-					users.insert([user], (err) => {
-						if (err) {
-							console.log('MongoDB Error:' + err);
-						} else {
-							res.render('partials/login/signup-completed', {
-								data: req.body
-							});
-						}
-						client.close();
+					res.render('partials/login/signup-completed', {
+						data: req.body
 					});
 				}
 			});
@@ -162,89 +152,69 @@ app.post('/signup', urlencodedParser, (req, res) => {
 });
 
 app.get('/profile', userRedirectLogin, (req, res) => {
-	MongoClient.connect(url, (err, client) => {
-		const db = client.db(dbname);
-
+	users.findOne({
+		_id: req.session.sessionID
+	}, (err, user) => {
 		if (err) {
 			console.log('MongoDB Error:' + err);
-		} else {
-			const users = db.collection('users');
-
-			users.findOne({
-				_id: req.session.sessionID
-			}, (err, user) => {
-				if (err) {
-					console.log('MongoDB Error:' + err);
-				}
-				if (user) {
-					res.render('partials/profile/profile', {
-						'userInfo': user,
-						title: 'Profile page'
-					});
-				} else {
-					console.log('Error: client ID could not been found!');
-				}
+		}
+		if (user) {
+			res.render('partials/profile/profile', {
+				'userInfo': user,
+				title: 'Profile page'
 			});
+		} else {
+			console.log('Error: client ID could not been found!');
 		}
 	});
 });
 
 app.post('/profile', urlencodedParser, (req, res) => {
-	MongoClient.connect(url, (err, client) => {
-		const db = client.db(dbname);
-
+	users.findOne({
+		_id: req.session.sessionID
+	}, (err, user) => {
 		if (err) {
 			console.log('MongoDB Error:' + err);
 		}
-
-		const users = db.collection('users');
-
-		users.findOne({
-			_id: req.session.sessionID
-		}, (err, user) => {
-			if (err) {
-				console.log('MongoDB Error:' + err);
-			}
-			if (req.body.editUser != user.username) {
-				users.findOne({
-					username: req.body.editUser
-				}, (err, username) => {
-					if (err) {
-						console.log('MongoDB Error:' + err);
-					}
-					if (username) {
-						console.log('name taken');
-						res.render('partials/profile/profile', {
-							'userInfo': user,
-							data: req.body
-						});
-					} else {
-						users.updateMany({
-							_id: req.session.sessionID
-						}, {
-							$set: {
-								'username': req.body.editUser,
-								'age': req.body.editAge,
-								'location': req.body.editLocation,
-								'description': req.body.editDescription
-							}
-						});
-						res.redirect('/profile');
-					}
-				});
-			} else {
-				users.updateMany({
-					_id: req.session.sessionID
-				}, {
-					$set: {
-						'age': req.body.editAge,
-						'location': req.body.editLocation,
-						'description': req.body.editDescription
-					}
-				});
-				res.redirect('/profile');
-			}
-		});
+		if (req.body.editUser != user.username) {
+			users.findOne({
+				username: req.body.editUser
+			}, (err, username) => {
+				if (err) {
+					console.log('MongoDB Error:' + err);
+				}
+				if (username) {
+					console.log('name taken');
+					res.render('partials/profile/profile', {
+						'userInfo': user,
+						data: req.body
+					});
+				} else {
+					users.updateMany({
+						_id: req.session.sessionID
+					}, {
+						$set: {
+							'username': req.body.editUser,
+							'age': req.body.editAge,
+							'location': req.body.editLocation,
+							'description': req.body.editDescription
+						}
+					});
+					res.redirect('/login');
+				}
+			});
+		} else {
+			users.updateMany({
+				_id: req.session.sessionID
+			}, {
+				$set: {
+					'age': req.body.editAge,
+					'location': req.body.editLocation,
+					'description': req.body.editDescription
+				}
+			});
+			res.redirect('/login');
+		}
 	});
 });
 
@@ -253,44 +223,34 @@ app.get('/remove', urlencodedParser, (req, res) => {
 });
 
 app.post('/remove', urlencodedParser, (req, res) => {
-	MongoClient.connect(url, (err, client) => {
-		const db = client.db(dbname);
-
+	users.findOne({
+		_id: req.session.sessionID
+	}, (err, user) => {
 		if (err) {
 			console.log('MongoDB Error:' + err);
-		} else {
-			const users = db.collection('users');
-
-			users.findOne({
-				_id: req.session.sessionID
-			}, (err, user) => {
-				if (err) {
-					console.log('MongoDB Error:' + err);
-				}
-				if (user) {
-					if (req.body.removePassword === user.password) {
-						users.deleteOne({
-							'_id': req.session.sessionID
-						});
-						req.session.destroy((err) => {
-							if (err) {
-								console.log('Error deleting user:' + err);
-							}
-	
-							res.clearCookie(sessionID);
-							res.redirect('/login');
-						});
-					} else {
-						console.log('password incorrect');
-						res.render('partials/remove/remove', {
-							data: 'The entered password is incorrect.'
-						});
+		}
+		if (user) {
+			if (req.body.removePassword === user.password) {
+				users.deleteOne({
+					'_id': req.session.sessionID
+				});
+				req.session.destroy((err) => {
+					if (err) {
+						console.log('Error deleting user:' + err);
 					}
-					
-				} else {
-					res.redirect('/');
-				}
-			});
+
+					res.clearCookie(sessionID);
+					res.redirect('/login');
+				});
+			} else {
+				console.log('password incorrect');
+				res.render('partials/remove/remove', {
+					data: 'The entered password is incorrect.'
+				});
+			}
+
+		} else {
+			res.redirect('/');
 		}
 	});
 });
@@ -313,28 +273,16 @@ app.post('/logout', userRedirectLogin, (req, res) => {
 // });
 
 app.get('/users', (req, res) => {
-	MongoClient.connect(url, (err, client) => {
-		const db = client.db(dbname);
-
+	users.find({}).toArray((err, result) => {
 		if (err) {
-			console.log('MongoDB Error:' + err);
-		} else {
-			const users = db.collection('users');
-
-			users.find({}).toArray((err, result) => {
-				if (err) {
-					res.send(err);
-				} else if (result.length) {
-					res.render('partials/users/userlist', {
-						'userlist': result
-					});
-				} else {
-					res.send('No data found');
-				}
+			res.send(err);
+		} else if (result.length) {
+			res.render('partials/users/userlist', {
+				'userlist': result
 			});
-			client.close();
+		} else {
+			res.send('No data found');
 		}
 	});
-
 	console.log(req.session);
 });

@@ -8,8 +8,12 @@
         display: none;
     }
 
-    h3 {
+    p {
         display: block;
+    }
+
+    label {
+        border-bottom: 1px solid #F25C54;
     }
 
     .profile {
@@ -18,7 +22,7 @@
                 display: block;
             }
 
-            h3 {
+            p {
                 display: none;
             }
         }

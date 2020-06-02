@@ -33,6 +33,9 @@ To compile the scss to css, run this command in the terminal:
 $ npm run sass
 ```
 
+### Extensions
+Please refer to my <a href="https://github.com/BVictorB/cmd-dating-app/wiki/Extensions" target="_blank">extensions wiki page</a> to find out more about the extensions that I used while creating this feature. 
+
 ### Packages
 These are the different packages that I have used to create this feature:
 
@@ -50,3 +53,15 @@ Development dependencies:
 * eslint
 * node-sass
 * nodemon
+
+### Sources
+Most of the information that I got from the internet and that I used to create this feature, was from the documentation of the different packages. Most of they have great documentation that is really clear and easy to pick up. I will list all the package documentation pages below:
+* <a href="https://expressjs.com/en/resources/middleware/body-parser.html" target="_blank">body-parser</a> and <a href="https://www.npmjs.com/package/body-parser" target="_blank">this one</a> 
+* <a href="https://www.npmjs.com/package/connect-mongodb-session" target="_blank">connect-mongodb-session</a> 
+* <a href="https://www.npmjs.com/package/dotenv" target="_blank">dotenv</a> 
+* <a href="https://expressjs.com/en/guide/routing.html" target="_blank">express</a> (express has really in depth documentation, I could basically find everything I needed in there)
+* <a href="https://www.npmjs.com/package/express-handlebars" target="_blank">express-handlebars</a> and <a href="https://www.youtube.com/watch?v=1srD3Mdvf50" target="_blank">this video</a>
+* <a href="https://www.npmjs.com/package/express-session" target="_blank">express-session</a> and <a href="https://www.youtube.com/watch?v=OH6Z0dJ_Huk" target="_blank">this video</a>
+* <a href="https://docs.mongodb.com/" target="_blank">mongodb</a> and <a href="https://www.youtube.com/watch?v=Do_Hsb_Hs3c" target="_blank">this video</a>
+* <a href="https://code.tutsplus.com/tutorials/file-upload-with-multer-in-node--cms-32088" target="_blank">multer</a>
+* I also got quite some information from the <a href="https://github.com/cmda-bt/be-course-19-20" target="_blank">be-course-19-20 repo</a> and ofcourse the lessons that we got

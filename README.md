@@ -1,4 +1,5 @@
 # cmd-dating-app
+![alt text](https://raw.githubusercontent.com/BVictorB/cmd-dating-app/master/bannerimage.jpg)
 This is the github repository for my dating website feature. I decided to make the signup, login and change profile settings part of the dating website. This is my job story: 
 > "When I am sitting at home all alone, I want to be able to create an account with ease at a dating website to be able to match with other people and finally find someone so I won't feel alone anymore. I want to be able to do this from anywhere and any device, and also with as little effort as possible."
 

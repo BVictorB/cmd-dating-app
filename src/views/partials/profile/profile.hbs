@@ -3,7 +3,10 @@
         <div class="login__background"></div>
         <div class="login__card">
             <h2>Profile</h2>
-            <form class="profile__edit__form" id="edit_profile" action="/profile" method="POST">
+            <form class="profile__edit__form" id="edit_profile" action="/profile" method="POST" enctype="multipart/form-data">
+                <div class="profile__avatar" style="background-image: url('{{ userInfo.avatar }}');"></div>
+                <label class="profile__avatar__label" for="editImage">Avatar</label>
+                <input class="profile__editavatar" type="file" name="editImage" accept="image/*">
                 <span class="sign-up--failed">The username <span class="takenUsername">{{ data.editUser }}</span> is already taken, please choose a different one.</span>
                 <label for="editUser">Username</label>
                 <p>{{ userInfo.username }}</p>

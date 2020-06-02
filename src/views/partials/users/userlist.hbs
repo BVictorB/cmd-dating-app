@@ -1,10 +1,17 @@
 {{!-- This is just an example for how to use the database information for now... --}}
+<div class="p-profile">
 <div class="p-login">
     <div class="login__background"></div>
-	{{#each userlist}}
-    <div class="login__card">
-        <h2>{{username}}</h2>
-        <h3>{{email}}</h3>
+    <div class="p-users">
+        {{#each userlist}}
+        <div class="login__card">
+            <div class="userlist__avatar" style="background-image: url('{{avatar}}');"></div>
+            <h2>{{username}}</h2>
+            <h3>Age: {{age}}</h3>
+            <h3>Location: {{location}}</h3>
+            <h3>{{description}}</h3>
+        </div>
+        {{/each}}
     </div>
-	{{/each}}
+</div>
 </div>

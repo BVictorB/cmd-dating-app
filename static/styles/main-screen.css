@@ -668,8 +668,39 @@ body {
   .p-login .form-error-message span {
     text-decoration: underline; }
 
+.userlist__avatar {
+  background-position: center;
+  background-size: cover;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  border-radius: 20px;
+  display: block; }
+
 .p-profile textarea {
-  width: 98%; }
+  width: 98%;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  resize: none;
+  margin-bottom: 30px;
+  padding: 10px 5px; }
+  .p-profile textarea:focus {
+    border-bottom: 1px solid #F25C54;
+    outline: 0;
+    caret-color: #F25C54; }
+  .p-profile textarea::-webkit-scrollbar {
+    width: 5px; }
+  .p-profile textarea::-webkit-scrollbar-track {
+    -webkit-border-radius: 10px;
+    border-radius: 10px; }
+  .p-profile textarea::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #f25c54; }
+  .p-profile textarea::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(242, 92, 84, 0.5); }
 
 .p-profile input, .p-profile textarea {
   display: none; }
@@ -677,15 +708,36 @@ body {
 .p-profile p {
   display: block;
   margin-top: 10px; }
+  .p-profile p:last-of-type {
+    margin-bottom: 35px; }
 
 .p-profile label {
   border-bottom: 1px solid #F25C54; }
+
+.p-profile .profile__avatar {
+  background-position: center;
+  background-size: cover;
+  width: 150px;
+  height: 150px;
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  border-radius: 20px;
+  display: block; }
+  .p-profile .profile__avatar__label {
+    display: none; }
 
 .p-profile .profile__edit input, .p-profile .profile__edit textarea {
   display: block; }
 
 .p-profile .profile__edit p {
   display: none; }
+
+.p-profile .profile__edit .profile__avatar {
+  display: none; }
+  .p-profile .profile__edit .profile__avatar__label {
+    display: inline-block;
+    margin-bottom: 10px; }
 
 .p-profile .profile__button {
   display: block; }
@@ -696,3 +748,6 @@ body {
   display: none; }
   .p-profile .profile__save--show {
     display: block; }
+
+.p-profile .profile__username {
+  width: 160px; }

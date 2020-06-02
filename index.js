@@ -8,7 +8,20 @@ const MongoDBStore = require('connect-mongodb-session')(session);
 const MongoClient = require('mongodb').MongoClient;
 const hbs = require('express-handlebars');
 const bodyParser = require('body-parser');
+const multer = require('multer');
 require('dotenv').config();
+
+const storage = multer.diskStorage({
+	destination: (req, file, cb) => {
+		cb(null, 'static/uploads');
+	},
+	filename: (req, file, cb) => {
+		cb(null, Date.now() + '.jpg');
+	}
+});
+const upload = multer({
+	storage: storage
+});
 
 const app = express();
 const urlencodedParser = bodyParser.urlencoded({
@@ -135,7 +148,8 @@ app.post('/signup', urlencodedParser, (req, res) => {
 				password: req.body.signupPassword,
 				description: '',
 				age: '',
-				location: ''
+				location: '',
+				avatar: ''
 			};
 
 			users.insert([user], (err) => {
@@ -169,7 +183,7 @@ app.get('/profile', userRedirectLogin, (req, res) => {
 	});
 });
 
-app.post('/profile', urlencodedParser, (req, res) => {
+app.post('/profile', upload.single('editImage'), urlencodedParser, (req, res) => {
 	users.findOne({
 		_id: req.session.sessionID
 	}, (err, user) => {
@@ -189,6 +203,20 @@ app.post('/profile', urlencodedParser, (req, res) => {
 						'userInfo': user,
 						data: req.body
 					});
+				} else if (req.file){
+					const img = 'uploads/' + req.file.path.split('/').pop();
+					users.updateMany({
+						_id: req.session.sessionID
+					}, {
+						$set: {
+							'username': req.body.editUser,
+							'age': req.body.editAge,
+							'location': req.body.editLocation,
+							'description': req.body.editDescription,
+							'avatar': img
+						}
+					});
+					res.redirect('/login');
 				} else {
 					users.updateMany({
 						_id: req.session.sessionID
@@ -203,6 +231,19 @@ app.post('/profile', urlencodedParser, (req, res) => {
 					res.redirect('/login');
 				}
 			});
+		} else if (req.file){
+			const img = 'uploads/' + req.file.path.split('/').pop();
+			users.updateMany({
+				_id: req.session.sessionID
+			}, {
+				$set: {
+					'age': req.body.editAge,
+					'location': req.body.editLocation,
+					'description': req.body.editDescription,
+					'avatar': img
+				}
+			});
+			res.redirect('/login');
 		} else {
 			users.updateMany({
 				_id: req.session.sessionID
@@ -215,6 +256,7 @@ app.post('/profile', urlencodedParser, (req, res) => {
 			});
 			res.redirect('/login');
 		}
+
 	});
 });
 
@@ -284,5 +326,4 @@ app.get('/users', (req, res) => {
 			res.send('No data found');
 		}
 	});
-	console.log(req.session);
 });

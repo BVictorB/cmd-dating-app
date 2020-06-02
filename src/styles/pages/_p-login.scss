@@ -215,3 +215,15 @@
         }
     }
 }
+
+.userlist__avatar {
+    background-position: center;
+    background-size: cover;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    border-radius: 20px;
+    display: block;
+}

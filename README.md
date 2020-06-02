@@ -10,7 +10,7 @@ I decided to create a little bit more after all, I added a lot of small 'nice to
 * Connection to a database to save all the information/files that users upload
 * Different backend validation, for example to make sure that multiple users can't have the same username
 
-To see the live version of this feature, [click here](http://157.245.68.125:1900/){:target="_blank"}.
+To see the live version of this feature, <a href="http://157.245.68.125:1900/" target="_blank">click here</a>.
 
 ### Installation
 ```bash

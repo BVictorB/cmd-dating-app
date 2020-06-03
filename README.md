@@ -20,9 +20,7 @@ Things I might add in the future:
 * Admin panel to control users
 
 To see the live version of this feature, <a href="http://157.245.68.125:1900/" target="_blank">click here</a>.
-
-
-
+#
 ### Installation
 ```
 $ git clone https://github.com/BVictorB/cmd-dating-app.git .
@@ -30,28 +28,23 @@ $ git clone https://github.com/BVictorB/cmd-dating-app.git .
 ```
 $ npm i
 ```
-
+#
 ### Run
 ```
 $ npm run dev
 ```
 localhost:1900 in browser
-
-
-
+#
 ### Sass
 This projects uses sass/scss, the scss is structured in files for each different page and will be structured even further in the future for different components aswell.
 To compile the scss to css, run this command in the terminal:
 ```
 $ npm run sass
 ```
-
-
+#
 ### Extensions
 Please refer to my <a href="https://github.com/BVictorB/cmd-dating-app/wiki/Extensions" target="_blank">extensions wiki page</a> to find out more about the extensions that I used while creating this feature. 
-
-
-
+#
 ### Packages
 These are the different packages that I have used to create this feature:
 
@@ -69,9 +62,7 @@ Development dependencies:
 * eslint
 * node-sass
 * nodemon
-
-
-
+#
 ### Sources
 Most of the information that I got from the internet and that I used to create this feature, was from the documentation of the different packages. Most of they have great documentation that is really clear and easy to pick up. I will list all the package documentation pages below:
 * <a href="https://expressjs.com/en/resources/middleware/body-parser.html" target="_blank">body-parser</a> and <a href="https://www.npmjs.com/package/body-parser" target="_blank">this one</a> 

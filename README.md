@@ -1,7 +1,7 @@
 # CreaLove - a CMD Project-Tech dating website
 ![alt text](https://raw.githubusercontent.com/BVictorB/cmd-dating-app/master/bannerimage.jpg)
 
-This is the github repository for my dating website feature. I decided to make the signup, login and change profile settings part of the dating website. This is my job story: 
+This is the GitHub repository for my dating website feature. I decided to make the signup, login and change profile settings part of the dating website. This is my job story: 
 > "When I am sitting at home all alone, I want to be able to create an account with ease at a dating website to be able to match with other people and finally find someone so I won't feel alone anymore. I want to be able to do this from anywhere and any device, and also with as little effort as possible."
 
 I decided to create a little bit more after all, I added a lot of small 'nice to have' features, that (in my opinion) really make the feature complete. Here is a list of features:
@@ -11,6 +11,13 @@ I decided to create a little bit more after all, I added a lot of small 'nice to
 * The ability to add an avatar to your profile
 * Connection to a database to save all the information/files that users upload
 * Different backend validation, for example to make sure that multiple users can't have the same username
+
+Things I might add in the future:
+* Mongoose schema for the user backend validation
+* Password hashing
+* MVC Model
+* Email activation code (for confirming your email adress)
+* Admin panel to control users
 
 To see the live version of this feature, <a href="http://157.245.68.125:1900/" target="_blank">click here</a>.
 
@@ -71,3 +78,5 @@ Most of the information that I got from the internet and that I used to create t
 * <a href="https://docs.mongodb.com/" target="_blank">mongodb</a> and <a href="https://www.youtube.com/watch?v=Do_Hsb_Hs3c" target="_blank">this video</a>
 * <a href="https://code.tutsplus.com/tutorials/file-upload-with-multer-in-node--cms-32088" target="_blank">multer</a>
 * I also got quite some information from the <a href="https://github.com/cmda-bt/be-course-19-20" target="_blank">be-course-19-20 repo</a> and ofcourse the lessons that we got
+
+*P.S. All of the code in this repository is written by myself, I did not copy any code.*

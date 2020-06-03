@@ -22,6 +22,7 @@ Things I might add in the future:
 To see the live version of this feature, <a href="http://157.245.68.125:1900/" target="_blank">click here</a>.
 
 
+
 ### Installation
 ```
 $ git clone https://github.com/BVictorB/cmd-dating-app.git .
@@ -37,6 +38,7 @@ $ npm run dev
 localhost:1900 in browser
 
 
+
 ### Sass
 This projects uses sass/scss, the scss is structured in files for each different page and will be structured even further in the future for different components aswell.
 To compile the scss to css, run this command in the terminal:
@@ -44,8 +46,10 @@ To compile the scss to css, run this command in the terminal:
 $ npm run sass
 ```
 
+
 ### Extensions
 Please refer to my <a href="https://github.com/BVictorB/cmd-dating-app/wiki/Extensions" target="_blank">extensions wiki page</a> to find out more about the extensions that I used while creating this feature. 
+
 
 
 ### Packages
@@ -65,6 +69,7 @@ Development dependencies:
 * eslint
 * node-sass
 * nodemon
+
 
 
 ### Sources

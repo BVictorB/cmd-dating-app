@@ -46,22 +46,7 @@ $ npm run sass
 Please refer to my <a href="https://github.com/BVictorB/cmd-dating-app/wiki/Extensions" target="_blank">extensions wiki page</a> to find out more about the extensions that I used while creating this feature. 
 #
 ### Packages
-These are the different packages that I have used to create this feature:
-
-Dependencies:
-* body-parser
-* connect-mongodb-session
-* dotenv
-* express
-* express-handlebars
-* express-session
-* mongodb
-* multer
-
-Development dependencies:
-* eslint
-* node-sass
-* nodemon
+Please refer to my <a href="https://github.com/BVictorB/cmd-dating-app/wiki/Packages" target="_blank">packages wiki page</a> to find out more about the packages that I used while creating this feature. 
 #
 ### Sources
 Most of the information that I got from the internet and that I used to create this feature, was from the documentation of the different packages. Most of they have great documentation that is really clear and easy to pick up. I will list all the package documentation pages below:
